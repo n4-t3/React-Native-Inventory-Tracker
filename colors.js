@@ -7,6 +7,8 @@ const colors = {
     buttonSecondaryRipple: "#CC9B6D",
     fontColor: "#FFFFFF",
     ripple:"#161B22",
+    activePage:"#C9CBFF",
+    inactivePage:"#907FA4"
 }
 
 export default colors

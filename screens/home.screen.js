@@ -1,9 +1,9 @@
-import { StyleSheet, View,ScrollView } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import colors from '../colors';
 import StyledText from '../components/styledText.component';
 import Categories from '../components/categories.component';
 import InputField from '../components/inputField.component';
-
+import Button from '../components/button.component';
 const HomeScreen = (props) =>{
     return (
         <ScrollView style={styles.container}>
@@ -28,6 +28,9 @@ const HomeScreen = (props) =>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:colors.primaryBackground,
+        paddingTop:50,
+        paddingLeft:20,
     },
     row:{
         flexGrow: 0,
