@@ -3,7 +3,7 @@ import colors from '../colors';
 import StyledText from '../components/styledText.component';
 import Categories from '../components/categories.component';
 import InputField from '../components/inputField.component';
-import Button from '../components/button.component';
+
 const HomeScreen = (props) =>{
     return (
         <ScrollView style={styles.container}>
