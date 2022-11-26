@@ -1,8 +1,8 @@
-import { StyleSheet, Pressable } from 'react-native';
+import { StyleSheet, Pressable, View } from 'react-native';
 import StyledText from './styledText.component';
 import colors from '../colors';
 
-const Button = ({value,type}) =>{
+const Button = ({value,type,onClick}) =>{
     let color  = ""
     let ripple = ""
     if(type=="primary"){
@@ -13,25 +13,34 @@ const Button = ({value,type}) =>{
         ripple = colors.buttonSecondaryRipple
     }
     const handlePress = (e)=>{
-        console.log(e)
+        onClick()
     }
     return (
-        <Pressable  
-            android_ripple={{color:ripple}}
-            style={{backgroundColor:color ,...styles.pressStyle}}
-            onPress={handlePress}>
-            <StyledText type="small">{value}</StyledText>
-        </Pressable >
+        <View style={styles.size}>
+            <Pressable  
+                android_ripple={{color:ripple}}
+                style={{backgroundColor:color ,...styles.pressStyle}}
+                onPress={handlePress}>
+                <StyledText type="small">{value}</StyledText>
+            </Pressable >
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     pressStyle: {
         borderRadius:10,
-        margin:5,
         padding:20,
-        overflow:'hidden'
+        overflow:'hidden',
+        flexDirection:'row',
+        justifyContent:'center'
     },
+    size:{
+        flex:1,
+        width:'30%',
+        marginTop:10,
+        marginBottom:10,
+    }
  });
 
 export default Button

@@ -1,18 +1,21 @@
-import { StyleSheet, Pressable } from 'react-native';
+import { StyleSheet, Pressable, View } from 'react-native';
 import StyledText from './styledText.component';
 import colors from '../colors';
 
-const Categories = (props) =>{
-    const handlePress = (e)=>{
-        console.log(e)
+const Categories = ({data,onClick}) =>{
+    const handlePress = ()=>{
+        // onClick()
+        console.log('category clicked')
     }
     return (
-        <Pressable  
-            android_ripple={{color:colors.ripple}}
-            style={styles.pressStyle}
-            onPress={handlePress}>
-            <StyledText type="small">Categories</StyledText>
-        </Pressable >
+        <View style={styles.size}>
+            <Pressable  
+                android_ripple={{color:colors.ripple}}
+                style={styles.pressStyle}
+                onPress={handlePress}>
+                <StyledText type="small">{data.Title}</StyledText>
+            </Pressable >
+        </View>
     )
 }
 
@@ -22,7 +25,13 @@ const styles = StyleSheet.create({
         borderRadius:10,
         margin:5,
         padding:20,
+        flexDirection:'row',
+        justifyContent:'center'
     },
+    size:{
+        flex:1,
+        width:'20%'
+    }
  });
 
 export default Categories

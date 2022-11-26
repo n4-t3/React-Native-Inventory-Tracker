@@ -1,19 +1,19 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-const StyledText = (props) =>{
+const StyledText = ({type,color,children}) =>{
     let size = ""
-    if(props.type == "large"){
+    if(type == "large"){
         size = 30
-    }else if(props.type == "medium") {
+    }else if(type == "medium") {
         size = 24
-    }else if(props.type == "small"){
+    }else if(type == "small"){
         size = 15
     }
     return (
         <View style={styles.container}>
             <Text 
-            style={{color: props.color ? props.color : "#FFF", fontSize:size}}>
-                {props.children}
+            style={{color: color ? color : "#FFF", fontSize:size}}>
+                {children}
             </Text>
         </View>
     )

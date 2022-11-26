@@ -6,23 +6,22 @@ export const createCategoriesTable = ()=>{
     CategoriesDB.transaction((tx)=>{
         tx.executeSql(`CREATE TABLE IF NOT EXISTS CategoriesDB (
             ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-            Title TEXT NOT NULL,
-            ImageUri TEXT NOT NULL
-        )`,[],
+            Title TEXT NOT NULL
+        );`,[],
         ()=>{console.log('Table created successfully')},
-        (_,error)=>{console.log('There was an error creating the table')})
+        (_,error)=>{console.log(error)})
     })
 }
 
-export const insertCategories = (categories)=>{
+export const insertCategories = (Title)=>{
     CategoriesDB.transaction((tx)=>{
-        tx.executeSql(`INSERT INTO CategoriesDB (Title, ImageUri) VALUES (?,?)`,[categories.Title,categories.ImageUri],
-        (_,result)=>{console.log('categories inserted')},(error)=>{'There was an error inserting categories'})
+        tx.executeSql("INSERT INTO CategoriesDB (Title) VALUES (?);",[Title],
+        (_,result)=>{console.log('categories inserted')},(error)=>{console.log(error)})
     })
 }
 
 export const fetchCategories = ()=>{
-    const promise = new Promise((resolve,reject)=>{
+    const promise = new Promise ((resolve,reject)=>{
         CategoriesDB.transaction((tx)=>{
             tx.executeSql(
                 'SELECT * FROM CategoriesDB ORDER BY ID DESC',[],(_,SQLResultSetRowList)=>{
@@ -32,7 +31,7 @@ export const fetchCategories = ()=>{
                     if (length>0){
                         for(let i=0;i<length;i++){
                             let item = SQLResultSetRowList.rows.item(i)
-                            results.push({id: item.ID, Title: item.Title, ImageUri: item.ImageUri})
+                            results.push({id: item.ID, Title: item.Title})
                         }
                     console.log('got the categories')
                     resolve(results)
@@ -44,10 +43,10 @@ export const fetchCategories = ()=>{
     return promise
 }
 
-export const updateCategories = (ID,Title,ImageUri)=>{
+export const updateCategories = (ID,Title)=>{
 		CategoriesDB.transaction((tx)=>{
 			tx.executeSql(
-				`UPDATE CategoriesDB SET Title=? ImageUri=? WHERE ID=?`,[Title,ImageUri,ID],(_,result)=>{console.log('updated categories')},(_,error)=>{console.log('error updating categories')}
+				`UPDATE CategoriesDB SET Title=? WHERE ID=?`,[Title, ID],(_,result)=>{console.log('updated categories')},(_,error)=>{console.log('error updating categories')}
 			)
 		})
 }
@@ -58,4 +57,4 @@ export const deleteCategories = (ID)=>{
 				`DELETE FROM CategoriesDB WHERE ID=?`,[ID],(_,result)=>{console.log('deleted categories')},(_,error)=>{console.log('error deleting category')}
 			)
 		})
-}   
+}  
