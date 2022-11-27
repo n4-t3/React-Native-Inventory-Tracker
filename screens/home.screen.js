@@ -6,7 +6,7 @@ import InputField from '../components/inputField.component';
 import { useContext } from 'react';
 import DataContext from '../context/categoriesContextProvider';
 
-const HomeScreen = (props) =>{
+const HomeScreen = ({ navigation }) =>{
     const {categories} = useContext(DataContext)
     return (
         <View style={styles.container}>
@@ -16,7 +16,7 @@ const HomeScreen = (props) =>{
             <InputField/>
             <FlatList data={categories} renderItem={(itemData)=>{
                 return(
-                    <Categories key={itemData.index} data={itemData.item}/>
+                    <Categories key={itemData.index} data={itemData.item} onClick={()=> navigation.navigate("Category",{data: itemData.item})} />
                 )
             }} style={styles.row} numColumns={2}/>
         </View>

@@ -1,16 +1,36 @@
-import { createContext, useEffect,useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from './colors';
+import { useEffect,useState } from 'react';
 
+import { StatusBar } from 'expo-status-bar';
+import colors from './colors';
+import { NavigationContainer } from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {createCategoriesTable, fetchCategories} from './storage/categoriesDB'
 import DataContext from './context/categoriesContextProvider';
 
 import HomeScreen from './screens/home.screen';
+import CategoryScreen from './screens/category.screen';
 import ProfileScreen from './screens/profile.screen';
 import InventoryScreen from './screens/inventory.screen';
+
+const Stack = createNativeStackNavigator();
+
+const HomeStackScreen = ()=>{
+  return(
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="Home"
+        component={HomeScreen}
+      />
+      <Stack.Screen
+        name="Category"
+        component={CategoryScreen}
+      />
+    </Stack.Navigator>
+  )
+}
 
 const Tab = createBottomTabNavigator();
 
@@ -25,6 +45,7 @@ export default function App() {
     }
     getCategories()
   },[])
+
 
   return (
     <>
@@ -45,7 +66,7 @@ export default function App() {
               borderTopWidth: 0
             }
             }}>
-          <Tab.Screen name="HomeScreen" component={HomeScreen} options={{
+          <Tab.Screen name="HomeScreen" component={HomeStackScreen} options={{
             tabBarLabel: 'HomeScreen',
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="home-variant-outline" color={color} size={size} />

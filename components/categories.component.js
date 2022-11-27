@@ -4,8 +4,7 @@ import colors from '../colors';
 
 const Categories = ({data,onClick}) =>{
     const handlePress = ()=>{
-        // onClick()
-        console.log('category clicked')
+        onClick()
     }
     return (
         <View style={styles.size}>
