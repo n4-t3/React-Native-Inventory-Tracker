@@ -1,4 +1,4 @@
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import colors from '../colors';
 import StyledText from '../components/styledText.component';
 import Categories from '../components/categories.component';
@@ -8,17 +8,21 @@ import DataContext from '../context/categoriesContextProvider';
 
 const HomeScreen = ({ navigation }) =>{
     const {categories} = useContext(DataContext)
+    console.log(categories)
     return (
         <View style={styles.container}>
             <StyledText color={colors.fontColor} type="large">
                 Find the things you didn't know you had
             </StyledText>
             <InputField/>
-            <FlatList data={categories} renderItem={(itemData)=>{
-                return(
-                    <Categories key={itemData.index} data={itemData.item} onClick={()=> navigation.navigate("Category",{data: itemData.item})} />
-                )
-            }} style={styles.row} numColumns={2}/>
+            <ScrollView style={styles.scrollView}>
+                {categories ? categories.map((element)=>{
+                    console.log(element);
+                    return(
+                        <Categories key={element.id} data={element} onClick={()=> navigation.navigate("Category",{data: element})} />
+                    )
+                }): null}
+            </ScrollView>
         </View>
       );
 }
@@ -31,7 +35,7 @@ const styles = StyleSheet.create({
         paddingLeft:20,
         paddingRight:20,
     },
-    row:{
+    scrollView:{
         flex: 1,
         flexGrow: 1,
     },

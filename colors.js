@@ -8,7 +8,9 @@ const colors = {
     fontColor: "#FFFFFF",
     ripple:"#161B22",
     activePage:"#C9CBFF",
-    inactivePage:"#907FA4"
+    inactivePage:"#907FA4",
+    edit:"#7793B0",
+    delete:"#C24F41"
 }
 
 export default colors
