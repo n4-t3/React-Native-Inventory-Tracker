@@ -3,15 +3,19 @@ import StyledText from './styledText.component';
 import colors from '../colors';
 import { deleteCategories,fetchCategories } from '../storage/categoriesDB';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import DataContext from '../context/categoriesContextProvider';
+import EditCategory from './editCategory.component';
 
 const Categories = ({data,onClick}) =>{
     const {categories,setCategories} = useContext(DataContext)
+    const [modalVisible,setModalVisible] = useState(false)
+
     const handleCategory = ()=>{
         onClick()
     }
     const handleEdit = ()=>{
+        setModalVisible(true)
         console.log('edit')
     }
     const handleDelete = ()=>{
@@ -40,6 +44,8 @@ const Categories = ({data,onClick}) =>{
         )
     }
     return (
+        <>
+        <EditCategory modalVisible = {modalVisible} setModalVisible={setModalVisible} data={data}/>
         <View style={styles.container}>
             <View>
                 <Pressable  
@@ -68,6 +74,7 @@ const Categories = ({data,onClick}) =>{
                 </View>
             </View>
         </View>
+        </>
     )
 }
 
@@ -78,7 +85,8 @@ const styles = StyleSheet.create({
         justifyContent:"space-between",
         backgroundColor:colors.secondaryBackground,
         marginTop:10,
-        marginBottom:10
+        marginBottom:10,
+        borderRadius:10,
     },
     row:{
         flexDirection: "row",
@@ -88,7 +96,7 @@ const styles = StyleSheet.create({
         borderRadius:10,
         margin:5,
         padding:20,
-    }
- });
+    },
+});
 
 export default Categories
