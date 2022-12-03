@@ -27,6 +27,16 @@ const HomeStackScreen = ()=>{
       <Stack.Screen
         name="Category"
         component={CategoryScreen}
+        options={{
+          title: 'Category',
+          headerStyle: {
+            backgroundColor: colors.secondaryBackground,
+          },
+          headerTintColor: colors.fontColor,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
       />
     </Stack.Navigator>
   )

@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Alert } from 'react-native';
 import colors from '../colors';
 import StyledText from '../components/styledText.component';
 import Categories from '../components/categories.component';
@@ -6,7 +6,22 @@ import InputField from '../components/inputField.component';
 import { useContext } from 'react';
 import DataContext from '../context/categoriesContextProvider';
 
-const HomeScreen = ({ navigation }) =>{
+const HomeScreen = ({ route, navigation }) =>{
+    if(route.params && route.params.data){
+        Alert.alert(
+            "Confirmation",
+            "New Item Added!",
+            [
+                {
+                    text: "Ok",
+                    style: "cancel",
+                },
+            ],
+            {
+              cancelable: true,
+            }
+        )
+    }
     const {categories} = useContext(DataContext)
     console.log(categories)
     return (

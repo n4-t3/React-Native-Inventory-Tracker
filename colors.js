@@ -9,6 +9,7 @@ const colors = {
     ripple:"#161B22",
     activePage:"#C9CBFF",
     inactivePage:"#907FA4",
+    warningColor:"#FFCC00",
     edit:"#7793B0",
     delete:"#C24F41"
 }
