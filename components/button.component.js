@@ -2,7 +2,7 @@ import { StyleSheet, Pressable, View } from 'react-native';
 import StyledText from './styledText.component';
 import colors from '../colors';
 
-const Button = ({value,type,onClick}) =>{
+const Button = ({value,type,onClick,center}) =>{
     let color  = ""
     let ripple = ""
     if(type=="primary"){
@@ -16,7 +16,7 @@ const Button = ({value,type,onClick}) =>{
         onClick()
     }
     return (
-        <View style={styles.size}>
+        <View style={[styles.size,center?styles.center:null]}>
             <Pressable  
                 android_ripple={{color:ripple}}
                 style={{backgroundColor:color ,...styles.pressStyle}}
@@ -39,7 +39,12 @@ const styles = StyleSheet.create({
         width:'30%',
         marginTop:10,
         marginBottom:10,
-    }
+    },
+    center:{
+        flex:1,
+        justifyContent:"center",
+        width: "100%"
+    },
  });
 
 export default Button

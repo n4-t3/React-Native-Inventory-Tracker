@@ -13,10 +13,10 @@ const height = Dimensions.get('window').height
 const CategoryScreen = ({route,navigation})=>{
     console.log(route.params.data)
     const region = {
-        latitude:37.78,
-        longitude:-122.43,
-        latitudeDelta:0.0922,
-        LongitudeDelta:0.0421
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
         }
     const [inputData,setInputData] = useState(null)
     const [image, setImage] = useState(null);
@@ -74,17 +74,18 @@ const CategoryScreen = ({route,navigation})=>{
                 {route.params.data.Title}
             </StyledText>
             <TextInput placeholderTextColor= {colors.fontColor} placeholder=" Add Item" style={styles.inputArea} onChangeText={inputHandler} keyboardType="default" autoCapitalize="none" autoCorrect={false} multiline= {false} value={inputData}/>
-            <Button onClick={pickImage} value="Select Image" type="secondary"/>
+            <Button style={styles.center} onClick={pickImage} value="Select Image" type="secondary" center={true}/>
             {image && <Image source={{ uri: image }} style={styles.image} />}
             <View style={styles.mapContainer}>
-                <MapView style={styles.map} onPress={selectLocationHandler}>
+                <MapView initialRegion={region}
+                    style={styles.map} onPress={selectLocationHandler}>
                     {selectedLocation&&<Marker coordinate={{latitude: selectedLocation.lat,longitude:selectedLocation.lng}}/>}
                 </MapView>
             </View>
             <StyledText color={colors.warningColor} type="small">
                 {notAdded}
             </StyledText>
-            <Button onClick={addCategory} value="Add Category" type="primary"/>
+            <Button style={styles.center} onClick={addCategory} value="Add Category" type="primary" center={true}/>
          </ScrollView>
     )
 }
