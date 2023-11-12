@@ -26,11 +26,11 @@ You can use android studio to run the app.
 ### DB Usage
 
 ```
-    Title TEXT NOT NULL, # Used for Category Screen
-    Name TEXT, # Used for Inventory Screen
-    ImageUri TEXT, # Used for Inventory Screen
-    LAT REAL, # Used for Inventory Screen
-    LNG REAL # Used for Inventory Screen
+    Title TEXT NOT NULL, # Used for Category state
+    Name TEXT, # Used for Inventory state
+    ImageUri TEXT, # Used for Inventory state
+    LAT REAL, # Used for Inventory state
+    LNG REAL # Used for Inventory state
 ```
 
 ### License
