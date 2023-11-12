@@ -23,6 +23,8 @@ const HomeScreen = ({ route, navigation }) => {
     );
   }
   const { categories } = useContext(DataContext);
+  console.log("here are the categories");
+  console.log(categories);
   return (
     <View style={styles.container}>
       <StyledText color={colors.fontColor} type="large">
@@ -31,10 +33,10 @@ const HomeScreen = ({ route, navigation }) => {
       <InputField />
       <ScrollView style={styles.scrollView}>
         {categories
-          ? categories.map((element) => {
+          ? categories.map((element, index) => {
               return (
                 <Categories
-                  key={element.id}
+                  key={index}
                   data={element}
                   onClick={() =>
                     navigation.navigate("Category", { data: element })

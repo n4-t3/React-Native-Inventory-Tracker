@@ -1,11 +1,22 @@
 import { StyleSheet, View, ScrollView } from "react-native";
 import colors from "../colors";
 import StyledText from "../components/styledText.component";
-import { useContext } from "react";
-import DataContext from "../context/categoriesContextProvider";
+import { useEffect, useState } from "react";
+import { fetchCategories } from "../storage/categoriesDB";
+import Inventories from "../components/inventories.component";
 
-const InventoryScreen = ({ route, navigation }) => {
-  const { inventories } = useContext(DataContext);
+const InventoryScreen = ({ navigation }) => {
+  const [inventories, setInventories] = useState();
+  const titles = [];
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const res = await fetchCategories();
+      setInventories(res);
+    };
+    getCategories();
+  }, []);
+
   return (
     <View style={styles.container}>
       <StyledText color={colors.fontColor} type="large">
@@ -14,14 +25,25 @@ const InventoryScreen = ({ route, navigation }) => {
       <ScrollView style={styles.scrollView}>
         {inventories
           ? inventories.map((element) => {
+              const showTitle = !titles.includes(element.Title);
+              titles.push(element.Title);
               return (
-                <StyledText
-                  key={element.id}
-                  color={colors.fontColor}
-                  type="small"
-                >
-                  {element}
-                </StyledText>
+                <View key={element.id}>
+                  {showTitle && (
+                    <StyledText color={colors.fontColor} type="medium">
+                      {element.Title}
+                    </StyledText>
+                  )}
+
+                  {element.Name && (
+                    <Inventories
+                      data={element}
+                      onClick={() =>
+                        navigation.navigate("ViewInventory", { data: element })
+                      }
+                    />
+                  )}
+                </View>
               );
             })
           : null}

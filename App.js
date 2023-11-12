@@ -6,14 +6,18 @@ import { NavigationContainer } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createCategoriesTable, fetchCategories } from "./storage/categoriesDB";
-import { createInventoryTable, fetchInventory } from "./storage/inventoryDB";
+import {
+  createCategoriesTable,
+  fetchCategories,
+  fetchUniqueTitles,
+} from "./storage/categoriesDB";
 import DataContext from "./context/categoriesContextProvider";
 
 import HomeScreen from "./screens/home.screen";
 import CategoryScreen from "./screens/category.screen";
 import ProfileScreen from "./screens/profile.screen";
 import InventoryScreen from "./screens/inventory.screen";
+import ViewInventoryScreen from "./screens/viewInventory.screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +47,31 @@ const HomeStackScreen = () => {
   );
 };
 
+const InventoryStackScreen = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Inventory"
+        component={InventoryScreen}
+      />
+      <Stack.Screen
+        name="ViewInventory"
+        component={ViewInventoryScreen}
+        options={{
+          title: "View Inventory",
+          headerStyle: {
+            backgroundColor: colors.secondaryBackground,
+          },
+          headerTintColor: colors.fontColor,
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -52,16 +81,14 @@ export default function App() {
   useEffect(() => {
     const getCategories = async () => {
       await createCategoriesTable();
-      const fetchCategoriesData = await fetchCategories();
+      const fetchCategoriesData = await fetchUniqueTitles();
+      console.log("app.js fetching data");
+      console.log(fetchCategoriesData);
       setCategories(fetchCategoriesData);
-    };
-    const getInventories = async () => {
-      await createInventoryTable();
-      const fetchInventoryData = await fetchInventory();
+      const fetchInventoryData = await fetchCategories();
       setInventories(fetchInventoryData);
     };
     getCategories();
-    getInventories();
   }, []);
 
   return (
@@ -102,7 +129,7 @@ export default function App() {
             />
             <Tab.Screen
               name="InventoryScreen"
-              component={InventoryScreen}
+              component={InventoryStackScreen}
               options={{
                 tabBarLabel: "InventoryScreen",
                 tabBarIcon: ({ color, size }) => (

@@ -19,6 +19,16 @@ npm start
 
 You can use android studio to run the app.
 
+### DB Usage
+
+```
+    Title TEXT NOT NULL, # Used for Category Screen
+    Name TEXT, # Used for Inventory Screen
+    ImageUri TEXT, # Used for Inventory Screen
+    LAT REAL, # Used for Inventory Screen
+    LNG REAL # Used for Inventory Screen
+```
+
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

@@ -1,14 +1,14 @@
 import { StyleSheet, Pressable, View, Alert } from "react-native";
 import StyledText from "./styledText.component";
 import colors from "../colors";
-import { deleteCategories, fetchCategories } from "../storage/categoriesDB";
+import { deleteCategories, fetchUniqueTitles } from "../storage/categoriesDB";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useContext, useState } from "react";
 import DataContext from "../context/categoriesContextProvider";
 import EditCategory from "./editCategory.component";
 
 const Categories = ({ data, onClick }) => {
-  const { categories, setCategories } = useContext(DataContext);
+  const { setCategories } = useContext(DataContext);
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleCategory = () => {
@@ -25,8 +25,8 @@ const Categories = ({ data, onClick }) => {
         {
           text: "Yes",
           onPress: async () => {
-            deleteCategories(data.id);
-            const updatedData = await fetchCategories();
+            await deleteCategories(data.Title);
+            const updatedData = await fetchUniqueTitles();
             setCategories(updatedData);
           },
           style: "cancel",

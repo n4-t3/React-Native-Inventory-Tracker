@@ -1,8 +1,8 @@
 import { StyleSheet, View, ScrollView, TextInput, Image } from "react-native";
 import colors from "../colors";
 import StyledText from "../components/styledText.component";
-import { useState, useEffect } from "react";
-import { createInventoryTable, insertInventory } from "../storage/inventoryDB";
+import { useState } from "react";
+import { insertCategories } from "../storage/categoriesDB";
 import Button from "../components/button.component";
 import { launchImageLibraryAsync, MediaTypeOptions } from "expo-image-picker";
 import MapView, { Marker } from "react-native-maps";
@@ -21,12 +21,7 @@ const CategoryScreen = ({ route, navigation }) => {
   const [image, setImage] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [notAdded, setNotAdded] = useState("");
-  useEffect(() => {
-    const getSpecifiedCategory = async () => {
-      await createInventoryTable();
-    };
-    getSpecifiedCategory();
-  }, []);
+
   const inputHandler = (e) => {
     setInputData(e);
   };
@@ -58,12 +53,12 @@ const CategoryScreen = ({ route, navigation }) => {
     if (selectedLocation === null) {
       setNotAdded((prevNotAdded) => prevNotAdded + "No location added");
     } else {
-      await insertInventory(
+      await insertCategories(
+        route.params.data.Title,
         inputData,
         image,
         selectedLocation.lat,
-        selectedLocation.lng,
-        route.params.data.id
+        selectedLocation.lng
       );
       setInputData(null);
       setImage(null);
